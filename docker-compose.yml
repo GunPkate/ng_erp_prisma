@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  node_prisma:
+    container_name: ngerp
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ngerp
+    ports:
+      - "5434:5432"
