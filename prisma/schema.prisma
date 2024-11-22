@@ -54,3 +54,110 @@ model accountSubControl{
   accountsubcontrol_code String
   accountControl accountControl@relation(fields: [accountsubcontrol_code], references: [code])
 }
+
+model stock{
+  id String @id
+  product_id String
+  catagory_id String @unique
+  product_name String
+  quantity Int
+  sale_price Float
+  current_purchase_price Float
+  description String
+  category category @relation(fields: [catagory_id], references: [id])
+
+}
+
+model category{
+  id String @id
+  category_name String
+  stock stock[]
+}
+
+model supplier{
+  supplier_id String @id @default(uuid())
+  supplier_name String
+  address String
+  email String
+  contact_no String
+  description String
+  supplierInvoice supplierInvoice[]
+}
+
+model customer{
+  customer_id String @id @default(uuid())
+  customer_name String
+  address String
+  email String
+  contact_no String
+  description String
+  customerInvoice customerInvoice[]
+}
+
+model supplierInvoice{
+  id String @id @default(uuid())
+  supplier_id String @unique
+  user_id String
+  invoice_no String
+  title String
+  total_amount Float
+  date DateTime
+  description String
+  supplier supplier @relation(fields: [supplier_id],references: [supplier_id])
+  supplierInvoiceDetail supplierInvoiceDetail?
+}
+
+model supplierInvoiceDetail{
+  id String @id @default(uuid())
+  supplier_invoice_id String @unique
+  product_id String
+  purchase_qty Int
+  purchase_unit_price Float
+  supplierInvoice supplierInvoice @relation(fields: [supplier_invoice_id],references: [id])
+}
+
+model customerInvoice{
+  id String @id @default(uuid())
+  customer_id String @unique
+  user_id String
+  invoice_no String
+  title String
+  total_amount Float
+  date DateTime
+  description String
+  customer customer @relation(fields: [customer_id],references: [customer_id])
+  customerInvoiceDetail customerInvoiceDetail?
+}
+
+model customerInvoiceDetail{
+  id String @id @default(uuid())
+  customer_invoice_id String @unique
+  product_id String
+  sale_qty Int
+  sale_unit_price Float
+  customerInvoice customerInvoice @relation(fields: [customer_invoice_id],references: [id])
+}
+
+model supplierPayment{
+  payment_id String @id @default(uuid())
+  supplier_id String
+  supplier_invoice String
+  user_id String
+  invoice_no String
+  total_amount Float
+  payment_amount Float
+  remain_balance Float
+  date DateTime
+}
+
+model customerPayment{
+  payment_id String @id @default(uuid())
+  customer_id String
+  customer_invoice String
+  user_id String
+  invoice_no String
+  total_amount Float
+  payment_amount Float
+  remain_balance Float
+  date DateTime
+}
