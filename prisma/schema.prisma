@@ -42,7 +42,9 @@ model accountHead{
   id Int @id
   accounthead_name String
   code String @unique
+
   accountControl accountControl[]
+  transaction transaction[]
 }
 
 model accountControl{
@@ -50,16 +52,20 @@ model accountControl{
   accountcontrol_name String
   code String @unique
   accountcontrol_code String
+
   accountHead accountHead@relation(fields: [accountcontrol_code], references: [code])
   accountSubControl accountSubControl[]
+  transaction transaction[]
 }
 
 model accountSubControl{
   id Int @id
   accountsubcontrol_name String
-  code String
+  code String @unique
   accountsubcontrol_code String
+
   accountControl accountControl@relation(fields: [accountsubcontrol_code], references: [code])
+  transaction transaction[]
 }
 
 model stock{
@@ -79,6 +85,7 @@ model stock{
   user user? @relation(fields: [user_id],references: [user_id])
 
   supplierInvoiceDetail supplierInvoiceDetail[]
+  customerInvoiceDetail customerInvoiceDetail[]
 }
 
 model category{
@@ -154,6 +161,7 @@ model customerInvoiceDetail{
   sale_qty Int
   sale_unit_price Float
   customerInvoice customerInvoice @relation(fields: [customer_invoice_id],references: [id])
+  stock stock? @relation(fields: [product_id], references: [product_id])
 }
 
 model supplierPayment{
@@ -194,9 +202,9 @@ model financialYear{
 model transaction{
   id String@id
   fiscal_year_id Int
-  accounthead_id String
-  accountcontrol_id String
-  accountsubcontrol_id String
+  accounthead_code String
+  accountcontrol_code String
+  accountsubcontrol_code String
   invoice_no String
   user_id String
   credit Float
@@ -205,5 +213,8 @@ model transaction{
   transaction_title String
   description String
   financialYear financialYear? @relation(fields: [fiscal_year_id], references: [financial_year_id])
+  accountHead accountHead@relation(fields: [accounthead_code], references: [code])
+  accountControl accountControl@relation(fields: [accountcontrol_code], references: [code])
+  accountSubControl accountSubControl@relation(fields: [accountsubcontrol_code], references: [code])
   user user? @relation(fields: [user_id],references: [user_id])
 }
