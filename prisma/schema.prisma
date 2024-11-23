@@ -29,6 +29,13 @@ model user{
   contact_no String
   username String
   password String
+
+  stock stock[]
+  supplierInvoice supplierInvoice[]
+  customerInvoice customerInvoice[]
+  supplierPayment supplierPayment[]
+  customerPayment customerPayment[]
+  transaction transaction[]
 }
 
 model accountHead{
@@ -57,7 +64,7 @@ model accountSubControl{
 
 model stock{
   id String @id
-  product_id String
+  product_id String @unique
   catagory_id String @unique
   product_name String
   quantity Int
@@ -65,7 +72,13 @@ model stock{
   current_purchase_price Float
   description String
   category category @relation(fields: [catagory_id], references: [id])
+  expiry_date DateTime
+  manu_date DateTime
+  stock_threshold_qty Int
+  user_id String
+  user user? @relation(fields: [user_id],references: [user_id])
 
+  supplierInvoiceDetail supplierInvoiceDetail[]
 }
 
 model category{
@@ -98,13 +111,15 @@ model supplierInvoice{
   id String @id @default(uuid())
   supplier_id String @unique
   user_id String
-  invoice_no String
+  invoice_no String @unique
   title String
   total_amount Float
   date DateTime
   description String
   supplier supplier @relation(fields: [supplier_id],references: [supplier_id])
-  supplierInvoiceDetail supplierInvoiceDetail?
+  supplierInvoiceDetail supplierInvoiceDetail[]
+  supplierPayment supplierPayment[]
+  user user? @relation(fields: [user_id],references: [user_id])
 }
 
 model supplierInvoiceDetail{
@@ -114,19 +129,22 @@ model supplierInvoiceDetail{
   purchase_qty Int
   purchase_unit_price Float
   supplierInvoice supplierInvoice @relation(fields: [supplier_invoice_id],references: [id])
+  stock stock? @relation(fields: [product_id], references: [product_id])
 }
 
 model customerInvoice{
   id String @id @default(uuid())
   customer_id String @unique
   user_id String
-  invoice_no String
+  invoice_no String @unique
   title String
   total_amount Float
   date DateTime
   description String
   customer customer @relation(fields: [customer_id],references: [customer_id])
   customerInvoiceDetail customerInvoiceDetail?
+  customerPayment customerPayment[]
+  user user? @relation(fields: [user_id],references: [user_id])
 }
 
 model customerInvoiceDetail{
@@ -148,6 +166,8 @@ model supplierPayment{
   payment_amount Float
   remain_balance Float
   date DateTime
+  supplierInvoice supplierInvoice @relation(fields: [supplier_invoice], references: [invoice_no])
+  user user? @relation(fields: [user_id],references: [user_id])
 }
 
 model customerPayment{
@@ -160,4 +180,30 @@ model customerPayment{
   payment_amount Float
   remain_balance Float
   date DateTime
+  customerInvoice customerInvoice@relation(fields: [customer_invoice], references: [invoice_no])
+  user user? @relation(fields: [user_id],references: [user_id])
+}
+
+model financialYear{
+  financial_year_id Int @id
+  financial_year DateTime
+  isActive Boolean
+  transaction transaction[]
+}
+
+model transaction{
+  id String@id
+  fiscal_year_id Int
+  accounthead_id String
+  accountcontrol_id String
+  accountsubcontrol_id String
+  invoice_no String
+  user_id String
+  credit Float
+  debit Float
+  transaction_date DateTime
+  transaction_title String
+  description String
+  financialYear financialYear? @relation(fields: [fiscal_year_id], references: [financial_year_id])
+  user user? @relation(fields: [user_id],references: [user_id])
 }
