@@ -4,7 +4,7 @@ const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient;
 
 
-app.get('/usertype',async (req,res)=>{
+app.get('/all',async (req,res)=>{
     try {
         const data = await prisma.userType.findMany()
         console.log(data)
@@ -14,7 +14,7 @@ app.get('/usertype',async (req,res)=>{
     }
 })
 
-app.post('/usertype', async (req,res)=>{
+app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
         console.log(getData.userType)

@@ -11,6 +11,7 @@ app.get("/test",(req,res)=>{
     res.send("test")
 })
 
-app.use("/user",require("./controller/user/userTypeController"))
+app.use("/usertype",require("./controller/user/userTypeController"))
+app.use("/user",require("./controller/user/userController"))
 
 app.listen("3000")
