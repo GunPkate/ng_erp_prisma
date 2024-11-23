@@ -14,4 +14,10 @@ app.get("/test",(req,res)=>{
 app.use("/usertype",require("./controller/user/userTypeController"))
 app.use("/user",require("./controller/user/userController"))
 
+app.use("/customer",require("./controller/sales/customerController"))
+app.use("/supplier",require("./controller/expenses/supplierController"))
+
+app.use("/account",require("./controller/account/accountController"))
+
+
 app.listen("3000")

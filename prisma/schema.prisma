@@ -39,7 +39,7 @@ model user{
 }
 
 model accountHead{
-  id Int @id
+  id String @id @default(uuid())
   accounthead_name String
   code String @unique
 
@@ -48,7 +48,7 @@ model accountHead{
 }
 
 model accountControl{
-  id Int @id
+  id String @id @default(uuid())
   accountcontrol_name String
   code String @unique
   accountcontrol_code String
@@ -59,7 +59,7 @@ model accountControl{
 }
 
 model accountSubControl{
-  id Int @id
+  id String @id @default(uuid())
   accountsubcontrol_name String
   code String @unique
   accountsubcontrol_code String
@@ -69,7 +69,7 @@ model accountSubControl{
 }
 
 model stock{
-  id String @id
+  id String @id @default(uuid())
   product_id String @unique
   catagory_id String @unique
   product_name String
@@ -89,7 +89,7 @@ model stock{
 }
 
 model category{
-  id String @id
+  id String @id @default(uuid())
   category_name String
   stock stock[]
 }
@@ -200,7 +200,7 @@ model financialYear{
 }
 
 model transaction{
-  id String@id
+  id String @id
   fiscal_year_id Int
   accounthead_code String
   accountcontrol_code String
