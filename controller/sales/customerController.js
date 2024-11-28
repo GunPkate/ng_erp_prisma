@@ -9,7 +9,7 @@ app.get('/all',async (req,res)=>{
         console.log(data)
         res.send(data)
     } catch (e) {
-        res.send(e.message)        
+        res.status(500).json({ error: e.message })        
     }
 })
 
@@ -29,7 +29,7 @@ app.post('/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+         res.status(500).json({ error: e.message })   
     }
 })
 

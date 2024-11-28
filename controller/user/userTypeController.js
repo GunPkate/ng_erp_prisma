@@ -10,7 +10,7 @@ app.get('/all',async (req,res)=>{
         console.log(data)
         res.send(data)
     } catch (e) {
-        res.send(e.message)        
+        res.status(500).json({ error: e.message })        
     }
 })
 
@@ -18,10 +18,10 @@ app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
         console.log(getData.userType)
-        const data = await prisma.userType.create({data: { user_type: getData.userType }})
+        const data = await prisma.userType.create({data: { userType: getData.userType }})
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+         res.status(500).json({ error: e.message })   
     }
 })
 

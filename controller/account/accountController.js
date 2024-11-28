@@ -8,7 +8,7 @@ app.get('/acchead/all',async (req,res)=>{
         const data = await prisma.accountHead.findMany()
         res.send(data)
     } catch (e) {
-        res.send(e.message)        
+        res.status(500).json({ error: e.message })        
     }
 })
 
@@ -25,7 +25,7 @@ app.post('/acchead/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+         res.status(500).json({ error: e.message })   
     }
 })
 
@@ -34,7 +34,7 @@ app.get('/acccontrol/all',async (req,res)=>{
         const data = await prisma.accountControl.findMany()
         res.send(data)
     } catch (e) {
-        res.send(e.message)        
+        res.status(500).json({ error: e.message })        
     }
 })
 
@@ -51,7 +51,7 @@ app.post('/acccontrol/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+         res.status(500).json({ error: e.message })   
     }
 })
 
@@ -60,7 +60,7 @@ app.get('/accountsubcontrol/all',async (req,res)=>{
         const data = await prisma.accounaccountSubControltControl.findMany()
         res.send(data)
     } catch (e) {
-        res.send(e.message)        
+        res.status(500).json({ error: e.message })        
     }
 })
 
@@ -77,7 +77,7 @@ app.post('/accountsubcontrol/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+         res.status(500).json({ error: e.message })   
     }
 })
 
