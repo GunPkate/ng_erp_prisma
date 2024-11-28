@@ -5,7 +5,7 @@ const prisma = new PrismaClient;
 
 app.get('/all',async (req,res)=>{
     try {
-        const data = await prisma.userType.findMany()
+        const data = await prisma.user.findMany()
         console.log(data)
         res.send(data)
     } catch (e) {

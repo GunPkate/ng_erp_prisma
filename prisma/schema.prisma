@@ -15,18 +15,18 @@ datasource db {
 
 model userType{
   id String @id @default(uuid())
-  user_type String
+  userType String @map("user_type")
   user user?
 }
 
 model user{
-  user_id String @id @default(uuid())
-  user_type_id String  @unique
-  usertype userType@relation(fields: [user_type_id], references: [id])
-  first_name String
-  last_name String
+  user_id String @id @default(uuid()) @map("user_id")
+  userTypeId String  @unique @map("user_type_id")
+  usertype userType@relation(fields: [userTypeId], references: [id])
+  firstName String @map("first_name")
+  lastName String @map("last_name")
   email String
-  contact_no String
+  contactNo String @map("contact_no")
   username String
   password String
 
