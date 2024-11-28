@@ -16,21 +16,22 @@ app.get('/all',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData.userType)
+        // console.log(getData.userType)
         const data = await prisma.user.create({data: 
             { 
-                first_name: getData.first_name,
-                last_name: getData.last_name,
-                email: getData.email ,
-                contact_no: getData.contact_no ,
-                username: getData.username ,
-                password: getData.password ,
-                user_type_id: getData.user_type_id,
+                userId	: getData.userId,
+                firstName: getData.firstName,
+                lastName: getData.lastName,
+                email: getData.email,
+                contactNo: getData.contactNo,
+                username: getData.username,
+                password: getData.password,
+                userTypeId: getData.userTypeId,
             }
         })
         res.send(data)
     } catch (e) {
-         res.send(e.message)   
+        res.status(500).json({ error: e.message })
     }
 })
 
