@@ -20,7 +20,7 @@ model userType{
 }
 
 model user{
-  user_id String @id @default(uuid()) @map("user_id")
+  userId String @id @default(uuid()) @map("user_id")
   userTypeId String  @unique @map("user_type_id")
   usertype userType@relation(fields: [userTypeId], references: [id])
   firstName String @map("first_name")
@@ -40,7 +40,7 @@ model user{
 
 model accountHead{
   id String @id @default(uuid())
-  accounthead_name String
+  accountHeadName String @map("account_head_name")
   code String @unique
 
   accountControl accountControl[]
@@ -49,40 +49,40 @@ model accountHead{
 
 model accountControl{
   id String @id @default(uuid())
-  accountcontrol_name String
+  accountControlName String @map("account_control_name")
   code String @unique
-  accountcontrol_code String
+  accountControlCode String @map("account_control_code")
 
-  accountHead accountHead@relation(fields: [accountcontrol_code], references: [code])
+  accountHead accountHead@relation(fields: [accountControlCode], references: [code])
   accountSubControl accountSubControl[]
   transaction transaction[]
 }
 
 model accountSubControl{
   id String @id @default(uuid())
-  accountsubcontrol_name String
+  accountSubcontrolName String @map("account_subcontrol_name")
   code String @unique
-  accountsubcontrol_code String
+  accountSubcontrolCode String @map("account_subcontrol_code")
 
-  accountControl accountControl@relation(fields: [accountsubcontrol_code], references: [code])
+  accountControl accountControl@relation(fields: [accountSubcontrolCode], references: [code])
   transaction transaction[]
 }
 
 model stock{
   id String @id @default(uuid())
-  product_id String @unique
-  catagory_id String @unique
-  product_name String
+  productId String @unique @map("product_id")
+  catagoryId String @unique @map("catagory_id")
+  productName String @map("product_name")
   quantity Int
-  sale_price Float
-  current_purchase_price Float
+  salePrice Float @map("sale_price")
+  currentPurchasePrice Float @map("current_purchase_price")
   description String
-  category category @relation(fields: [catagory_id], references: [id])
-  expiry_date DateTime
-  manu_date DateTime
-  stock_threshold_qty Int
-  user_id String
-  user user? @relation(fields: [user_id],references: [user_id])
+  category category @relation(fields: [catagoryId], references: [id])
+  expiryDate DateTime @map("expiry_date")
+  manuDate DateTime @map("manu_date")
+  stockThresholdQty Int @map("stock_threshold_qty")
+  userId String @map("user_id")
+  user user? @relation(fields: [userId],references: [userId])
 
   supplierInvoiceDetail supplierInvoiceDetail[]
   customerInvoiceDetail customerInvoiceDetail[]
@@ -90,131 +90,131 @@ model stock{
 
 model category{
   id String @id @default(uuid())
-  category_name String
+  categoryName String @map("category_name")
   stock stock[]
 }
 
 model supplier{
-  supplier_id String @id @default(uuid())
-  supplier_name String
+  supplierId String @id @default(uuid()) @map("supplier_id")
+  supplierName String @map("supplier_name")
   address String
   email String
-  contact_no String
+  contactNo String @map("contact_no")
   description String
   supplierInvoice supplierInvoice[]
 }
 
 model customer{
-  customer_id String @id @default(uuid())
-  customer_name String
+  customerId String @id @default(uuid()) @map("customer_id")
+  customerName String @map("customer_name")
   address String
   email String
-  contact_no String
+  contactNo String @map("contact_no")
   description String
   customerInvoice customerInvoice[]
 }
 
 model supplierInvoice{
   id String @id @default(uuid())
-  supplier_id String @unique
-  user_id String
-  invoice_no String @unique
+  supplierId String @unique @map("supplier_id")
+  userId String @map("user_id")
+  invoiceNo String @unique @map("invoice_no")
   title String
-  total_amount Float
+  totalAmount Float @map("total_amount")
   date DateTime
   description String
-  supplier supplier @relation(fields: [supplier_id],references: [supplier_id])
+  supplier supplier @relation(fields: [supplierId],references: [supplierId])
   supplierInvoiceDetail supplierInvoiceDetail[]
   supplierPayment supplierPayment[]
-  user user? @relation(fields: [user_id],references: [user_id])
+  user user? @relation(fields: [userId],references: [userId])
 }
 
 model supplierInvoiceDetail{
   id String @id @default(uuid())
-  supplier_invoice_id String @unique
-  product_id String
-  purchase_qty Int
-  purchase_unit_price Float
-  supplierInvoice supplierInvoice @relation(fields: [supplier_invoice_id],references: [id])
-  stock stock? @relation(fields: [product_id], references: [product_id])
+  supplierInvoiceId String @unique @map("supplier_invoice_id")
+  productId String @map("product_id")
+  purchaseQty Int @map("purchase_qty")
+  purchaseUnitPrice Float @map("purchase_unit_price")
+  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceId],references: [id])
+  stock stock? @relation(fields: [productId], references: [productId])
 }
 
 model customerInvoice{
   id String @id @default(uuid())
-  customer_id String @unique
-  user_id String
-  invoice_no String @unique
+  customerId String @unique @map("customer_id")
+  userId String @map("user_id")
+  invoiceNo String @unique @map("invoice_no")
   title String
-  total_amount Float
+  totalAmount Float @map("total_amount")
   date DateTime
   description String
-  customer customer @relation(fields: [customer_id],references: [customer_id])
+  customer customer @relation(fields: [customerId],references: [customerId])
   customerInvoiceDetail customerInvoiceDetail?
   customerPayment customerPayment[]
-  user user? @relation(fields: [user_id],references: [user_id])
+  user user? @relation(fields: [userId],references: [userId])
 }
 
 model customerInvoiceDetail{
   id String @id @default(uuid())
-  customer_invoice_id String @unique
-  product_id String
-  sale_qty Int
-  sale_unit_price Float
-  customerInvoice customerInvoice @relation(fields: [customer_invoice_id],references: [id])
-  stock stock? @relation(fields: [product_id], references: [product_id])
+  customerInvoiceId String @unique @map("customer_invoice_id")
+  productId String @map("product_id")
+  saleQty Int @map("sale_qty")
+  saleUnitPrice Float @map("sale_unit_price")
+  customerInvoice customerInvoice @relation(fields: [customerInvoiceId],references: [id])
+  stock stock? @relation(fields: [productId], references: [productId])
 }
 
 model supplierPayment{
-  payment_id String @id @default(uuid())
-  supplier_id String
-  supplier_invoice String
-  user_id String
-  invoice_no String
-  total_amount Float
-  payment_amount Float
-  remain_balance Float
+  paymentId String @id @default(uuid()) @map("payment_id")
+  supplierId String @map("supplier_id")
+  supplierInvoiceNo String @map("supplier_invoice")
+  userId String @map("user_id")
+  invoiceNo String @map("invoice_no")
+  totalAmount Float @map("total_amount")
+  paymentAmount Float @map("payment_amount")
+  remainBalance Float @map("remain_balance")
   date DateTime
-  supplierInvoice supplierInvoice @relation(fields: [supplier_invoice], references: [invoice_no])
-  user user? @relation(fields: [user_id],references: [user_id])
+  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceNo], references: [invoiceNo])
+  user user? @relation(fields: [userId],references: [userId])
 }
 
 model customerPayment{
-  payment_id String @id @default(uuid())
-  customer_id String
-  customer_invoice String
-  user_id String
-  invoice_no String
-  total_amount Float
-  payment_amount Float
-  remain_balance Float
+  paymentId String @id @default(uuid()) @map("payment_id")
+  customerId String @map("customer_id")
+  customerInvoiceNo String @map("customer_invoice")
+  userId String @map("user_id")
+  invoiceNo String @map("invoice_no")
+  totalAmount Float @map("total_amount")
+  paymentAmount Float @map("payment_amount")
+  remainBalance Float @map("remain_balance")
   date DateTime
-  customerInvoice customerInvoice@relation(fields: [customer_invoice], references: [invoice_no])
-  user user? @relation(fields: [user_id],references: [user_id])
+  customerInvoice customerInvoice@relation(fields: [customerInvoiceNo], references: [invoiceNo])
+  user user? @relation(fields: [userId],references: [userId])
 }
 
 model financialYear{
-  financial_year_id Int @id
-  financial_year DateTime
+  financialYearId Int @id @map("financial_year_id")
+  financialYear DateTime @map("financial_year")
   isActive Boolean
   transaction transaction[]
 }
 
 model transaction{
   id String @id
-  fiscal_year_id Int
-  accounthead_code String
-  accountcontrol_code String
-  accountsubcontrol_code String
-  invoice_no String
-  user_id String
+  financialYearId Int @map("financial_year_id")
+  accountHeadCode String @map("account_head_code")
+  accountControlCode String @map("account_control_code")
+  accountSubcontrolCode String @map("account_subcontrol_code")
+  invoiceNo String  @map("invoice_no")
+  userId String @map("user_id")
   credit Float
   debit Float
-  transaction_date DateTime
-  transaction_title String
+  transaction_date DateTime @map("transaction_date")
+  transaction_title String @map("transaction_title")
   description String
-  financialYear financialYear? @relation(fields: [fiscal_year_id], references: [financial_year_id])
-  accountHead accountHead@relation(fields: [accounthead_code], references: [code])
-  accountControl accountControl@relation(fields: [accountcontrol_code], references: [code])
-  accountSubControl accountSubControl@relation(fields: [accountsubcontrol_code], references: [code])
-  user user? @relation(fields: [user_id],references: [user_id])
+  financialYear financialYear? @relation(fields: [financialYearId], references: [financialYearId])
+  accountHead accountHead@relation(fields: [accountHeadCode], references: [code])
+  accountControl accountControl@relation(fields: [accountControlCode], references: [code])
+  accountSubControl accountSubControl@relation(fields: [accountSubcontrolCode], references: [code])
+  user user? @relation(fields: [userId],references: [userId])
 }
