@@ -29,6 +29,16 @@ app.post('/acchead/create', async (req,res)=>{
     }
 })
 
+app.post('/acchead/delete', async (req,res)=>{
+    try {
+        const getData = req.body
+        const data = await prisma.accountHead.delete( { where: { id: getData.id} } )
+        res.send(data)
+    } catch (e) {
+         res.status(500).json({ error: e.message })   
+    }
+})
+
 app.get('/acccontrol/all',async (req,res)=>{
     try {
         const data = await prisma.accountControl.findMany()
