@@ -19,7 +19,7 @@ app.post('/acchead/create', async (req,res)=>{
         const data = await prisma.accountHead.create({data: 
             { 
                 id: getData.id,
-                accounthead_name: getData.accounthead_name,
+                accountHeadName: getData.accountHeadName,
                 code: getData.code,
             }
         })

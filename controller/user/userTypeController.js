@@ -25,4 +25,15 @@ app.post('/create', async (req,res)=>{
     }
 })
 
+app.post('/delete', async (req,res)=>{
+    try {
+        const getData = req.body
+        console.log(getData.userType)
+        const data = await prisma.userType.delete( { where: { id: getData.id} } )
+        res.send(data)
+    } catch (e) {
+         res.status(500).json({ error: e.message })   
+    }
+})
+
 module.exports = app
