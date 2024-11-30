@@ -51,9 +51,9 @@ model accountControl{
   id String @id @default(uuid())
   accountControlName String @map("account_control_name")
   code String @unique
-  accountControlCode String @map("account_control_code")
+  accountHeadCode String @map("account_head_code")
 
-  accountHead accountHead@relation(fields: [accountControlCode], references: [code])
+  accountHead accountHead@relation(fields: [accountHeadCode], references: [code])
   accountSubControl accountSubControl[]
   transaction transaction[]
 }
@@ -62,9 +62,9 @@ model accountSubControl{
   id String @id @default(uuid())
   accountSubcontrolName String @map("account_subcontrol_name")
   code String @unique
-  accountSubcontrolCode String @map("account_subcontrol_code")
+  accountControlCode String @map("account_control_code")
 
-  accountControl accountControl@relation(fields: [accountSubcontrolCode], references: [code])
+  accountControl accountControl@relation(fields: [accountControlCode], references: [code])
   transaction transaction[]
 }
 

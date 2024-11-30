@@ -15,7 +15,6 @@ app.get('/acchead/all',async (req,res)=>{
 app.post('/acchead/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData.userType)
         const data = await prisma.accountHead.create({data: 
             { 
                 id: getData.id,
@@ -51,12 +50,13 @@ app.get('/acccontrol/all',async (req,res)=>{
 app.post('/acccontrol/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData.userType)
+        console.log(getData)
         const data = await prisma.accountControl.create({data: 
             { 
                 id: getData.id,
-                accountcontrol_name: getData.accountcontrol_name,
-                code: getData.code,
+                accountControlName: getData.accountControlName, 
+                code: getData.code, 
+                accountHeadCode: getData.accountHeadCode
             }
         })
         res.send(data)
@@ -65,26 +65,47 @@ app.post('/acccontrol/create', async (req,res)=>{
     }
 })
 
-app.get('/accountsubcontrol/all',async (req,res)=>{
+app.post('/acccontrol/delete', async (req,res)=>{
     try {
-        const data = await prisma.accounaccountSubControltControl.findMany()
+        const getData = req.body
+        const data = await prisma.accountControl.delete( { where: { id: getData.id} } )
+        res.send(data)
+    } catch (e) {
+         res.status(500).json({ error: e.message })   
+    }
+})
+
+app.get('/accsubcontrol/all',async (req,res)=>{
+    try {
+        const data = await prisma.accountSubControl.findMany()
         res.send(data)
     } catch (e) {
         res.status(500).json({ error: e.message })        
     }
 })
 
-app.post('/accountsubcontrol/create', async (req,res)=>{
+app.post('/accsubcontrol/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData.userType)
+        console.log(getData)
         const data = await prisma.accountSubControl.create({data: 
             { 
                 id: getData.id,
-                accountsubcontrol_name: getData.accountsubcontrol_name,
-                code: getData.code,
+                accountSubcontrolName: getData.accountSubcontrolName, 
+                code: getData.code, 
+                accountControlCode: getData.accountControlCode
             }
         })
+        res.send(data)
+    } catch (e) {
+         res.status(500).json({ error: e.message })   
+    }
+})
+
+app.post('/accsubcontrol/delete', async (req,res)=>{
+    try {
+        const getData = req.body
+        const data = await prisma.accountSubControl.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
          res.status(500).json({ error: e.message })   
