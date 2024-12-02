@@ -19,14 +19,25 @@ app.post('/create', async (req,res)=>{
         console.log(getData.userType)
         const data = await prisma.customer.create({data: 
             { 
-                customer_id: getData.customer_id,
-                customer_name: getData.customer_name,
+                customerId: getData.customerId,
+                customerName: getData.customerName,
                 address: getData.address ,
                 email: getData.email ,
-                contact_no: getData.contact_no ,
+                contactNo: getData.contactNo ,
                 description: getData.description ,
             }
         })
+        res.send(data)
+    } catch (e) {
+         res.status(500).json({ error: e.message })   
+    }
+})
+
+app.post('/delete', async (req,res)=>{
+    try {
+        const getData = req.body
+        const data = await prisma.customer.delete( { where: { customerId: getData.customerId} } )
+        console.log(data)
         res.send(data)
     } catch (e) {
          res.status(500).json({ error: e.message })   
