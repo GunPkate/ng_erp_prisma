@@ -16,6 +16,7 @@ app.use("/user",require("./controller/user/userController"))
 
 app.use("/customer",require("./controller/sales/customerController"))
 app.use("/supplier",require("./controller/expenses/supplierController"))
+app.use("/category",require("./controller/stock/categoryController"))
 
 app.use("/account",require("./controller/account/accountController"))
 
