@@ -193,7 +193,7 @@ model customerPayment{
 }
 
 model financialYear{
-  financialYearId Int @id @map("financial_year_id")
+  financialYearId String @id @map("financial_year_id")
   financialYear DateTime @map("financial_year")
   isActive Boolean
   transaction transaction[]
@@ -201,7 +201,7 @@ model financialYear{
 
 model transaction{
   id String @id
-  financialYearId Int @map("financial_year_id")
+  financialYearId String @map("financial_year_id")
   accountHeadCode String @map("account_head_code")
   accountControlCode String @map("account_control_code")
   accountSubcontrolCode String @map("account_subcontrol_code")

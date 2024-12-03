@@ -21,6 +21,7 @@ app.use("/category",require("./controller/stock/categoryController"))
 app.use("/product",require("./controller/stock/productController"))
 
 app.use("/account",require("./controller/account/accountController"))
+app.use("/financialyear",require("./controller/account/financialyearController"))
 
 
 app.listen("3000")
