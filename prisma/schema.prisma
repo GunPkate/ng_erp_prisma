@@ -135,7 +135,7 @@ model supplierInvoiceDetail{
   productId String @map("product_id")
   purchaseQty Int @map("purchase_qty")
   purchaseUnitPrice Float @map("purchase_unit_price")
-  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceId],references: [id])
+  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceId],references: [id],  onDelete: Cascade)
   stock stock? @relation(fields: [productId], references: [productId])
 }
 
