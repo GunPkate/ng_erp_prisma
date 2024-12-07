@@ -16,15 +16,17 @@ app.get('/all',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData.userType)
-        const data = await prisma.supplier.create({data: 
+        console.log(getData)
+        const data = await prisma.supplierInvoice.create({data: 
             { 
+                id: getData.id,
+                invoiceNo: getData.invoiceNo,
                 supplierId: getData.supplierId,
-                supplierName: getData.supplierName,
-                address: getData.address ,
-                email: getData.email ,
-                contactNo: getData.contactNo ,
-                description: getData.description ,
+                date: getData.date,
+                title: getData.title,
+                description: getData.description,
+                userId: getData.userId, 
+                totalAmount: getData.totalAmount        
             }
         })
         res.send(data)
@@ -36,8 +38,8 @@ app.post('/create', async (req,res)=>{
 app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
-        const data = await prisma.supplier.delete( { where: { supplierId: getData.supplierId} } )
-        console.log(data)
+        console.log(1234,getData.id)
+        const data = await prisma.supplierInvoice.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
          res.status(500).json({ error: e.message })   

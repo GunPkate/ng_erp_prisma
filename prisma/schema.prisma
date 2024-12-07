@@ -116,7 +116,7 @@ model customer{
 
 model supplierInvoice{
   id String @id @default(uuid())
-  supplierId String @unique @map("supplier_id")
+  supplierId String @map("supplier_id")
   userId String @map("user_id")
   invoiceNo String @unique @map("invoice_no")
   title String
@@ -131,7 +131,7 @@ model supplierInvoice{
 
 model supplierInvoiceDetail{
   id String @id @default(uuid())
-  supplierInvoiceId String @unique @map("supplier_invoice_id")
+  supplierInvoiceId String @map("supplier_invoice_id")
   productId String @map("product_id")
   purchaseQty Int @map("purchase_qty")
   purchaseUnitPrice Float @map("purchase_unit_price")
