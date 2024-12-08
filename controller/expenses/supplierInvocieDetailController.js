@@ -37,7 +37,7 @@ app.post('/create', async (req,res)=>{
 app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(1234,getData.id)
+        console.log(1234,getData)
         const data = await prisma.supplierInvoiceDetail.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {

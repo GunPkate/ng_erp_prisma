@@ -31,7 +31,11 @@ app.post('/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+        console.log("data error",e )
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })   
     }
 })
 
