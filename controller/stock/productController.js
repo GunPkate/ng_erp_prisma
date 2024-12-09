@@ -18,7 +18,7 @@ app.get('/all',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData)
+
         const data = await prisma.stock.create({data: 
             { 
                 id: getData.id,

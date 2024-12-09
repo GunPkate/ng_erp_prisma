@@ -6,9 +6,9 @@ const prisma = new PrismaClient;
 app.get('/all:invoiceno',async (req,res)=>{
     try {
         let param = req.params.invoiceno.replace(':','')
-        console.log("req.params",param)
+
         const data = await prisma.supplierInvoiceDetail.findMany({where: { supplierInvoiceId: param } })
-        console.log("req.params",data)
+
         res.send(data)
     } catch (e) {
         res.status(500).json({ 
@@ -21,7 +21,7 @@ app.get('/all:invoiceno',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData)
+
         const data = await prisma.supplierInvoiceDetail.create({data: 
             { 
                 id: getData.id,
@@ -43,7 +43,7 @@ app.post('/create', async (req,res)=>{
 app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(1234,getData)
+
         const data = await prisma.supplierInvoiceDetail.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {

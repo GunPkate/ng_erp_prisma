@@ -62,7 +62,6 @@ app.get('/acccontrol/all',async (req,res)=>{
 app.post('/acccontrol/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData)
         const data = await prisma.accountControl.create({data: 
             { 
                 id: getData.id,
@@ -108,7 +107,7 @@ app.get('/accsubcontrol/all',async (req,res)=>{
 app.post('/accsubcontrol/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log(getData)
+
         const data = await prisma.accountSubControl.create({data: 
             { 
                 id: getData.id,
