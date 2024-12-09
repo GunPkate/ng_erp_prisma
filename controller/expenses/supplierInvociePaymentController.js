@@ -3,9 +3,12 @@ const app = express.Router();
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient;
 
-app.get('/all',async (req,res)=>{
+app.get('/all:invoiceno',async (req,res)=>{
     try {
-        const data = await prisma.stock.findMany()
+        let param = req.params.invoiceno.replace(':','')
+        console.log("req.params",param)
+        const data = await prisma.supplierPayment.findMany({where: { supplierInvoiceId: param } })
+        console.log("req.params",data)
         res.send(data)
     } catch (e) {
         res.status(500).json({ 
@@ -19,20 +22,13 @@ app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
         console.log(getData)
-        const data = await prisma.stock.create({data: 
+        const data = await prisma.supplierPayment.create({data: 
             { 
                 id: getData.id,
+                supplierInvoiceId: getData.supplierInvoiceId,
                 productId: getData.productId,
-                catagoryId: getData.catagoryId,
-                productName: getData.productName,
-                quantity: getData.quantity,
-                salePrice: getData.salePrice,
-                currentPurchasePrice: getData.currentPurchasePrice,
-                description: getData.description,
-                expiryDate: getData.expiryDate,
-                manuDate: getData.manuDate,
-                stockThresholdQty: getData.stockThresholdQty,
-                userId: getData.userId,
+                purchaseQty: getData.purchaseQty,
+                purchaseUnitPrice: getData.purchaseUnitPrice,    
             }
         })
         res.send(data)
@@ -47,7 +43,8 @@ app.post('/create', async (req,res)=>{
 app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
-        const data = await prisma.stock.delete( { where: { id: getData.id} } )
+        console.log(1234,getData)
+        const data = await prisma.supplierPayment.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
          res.status(500).json({ 
@@ -56,6 +53,5 @@ app.post('/delete', async (req,res)=>{
           })     
     }
 })
-
 
 module.exports = app

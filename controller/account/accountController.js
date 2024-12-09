@@ -8,7 +8,10 @@ app.get('/acchead/all',async (req,res)=>{
         const data = await prisma.accountHead.findMany()
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -24,7 +27,10 @@ app.post('/acchead/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -34,7 +40,10 @@ app.post('/acchead/delete', async (req,res)=>{
         const data = await prisma.accountHead.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -43,7 +52,10 @@ app.get('/acccontrol/all',async (req,res)=>{
         const data = await prisma.accountControl.findMany()
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -61,7 +73,10 @@ app.post('/acccontrol/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -71,7 +86,10 @@ app.post('/acccontrol/delete', async (req,res)=>{
         const data = await prisma.accountControl.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -80,7 +98,10 @@ app.get('/accsubcontrol/all',async (req,res)=>{
         const data = await prisma.accountSubControl.findMany()
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -98,7 +119,10 @@ app.post('/accsubcontrol/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -108,7 +132,10 @@ app.post('/accsubcontrol/delete', async (req,res)=>{
         const data = await prisma.accountSubControl.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 

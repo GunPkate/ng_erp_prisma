@@ -9,7 +9,10 @@ app.get('/all',async (req,res)=>{
         console.log(data)
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -29,7 +32,10 @@ app.post('/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -40,7 +46,10 @@ app.post('/delete', async (req,res)=>{
         console.log(data)
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 

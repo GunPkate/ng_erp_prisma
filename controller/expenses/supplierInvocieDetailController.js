@@ -11,7 +11,10 @@ app.get('/all:invoiceno',async (req,res)=>{
         console.log("req.params",data)
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -30,7 +33,10 @@ app.post('/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -41,7 +47,10 @@ app.post('/delete', async (req,res)=>{
         const data = await prisma.supplierInvoiceDetail.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 

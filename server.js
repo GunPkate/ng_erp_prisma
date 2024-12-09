@@ -20,6 +20,7 @@ app.use("/customerinvoice",require("./controller/sales/customerInvoiceController
 app.use("/supplier",require("./controller/expenses/supplierController"))
 app.use("/supplierinvoice",require("./controller/expenses/supplierInvocieController"))
 app.use("/supplierinvoicedetail",require("./controller/expenses/supplierInvocieDetailController"))
+app.use("/supplierinvoicepayment",require("./controller/expenses/supplierInvociePaymentController"))
 
 app.use("/category",require("./controller/stock/categoryController"))
 app.use("/product",require("./controller/stock/productController"))

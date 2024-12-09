@@ -8,7 +8,10 @@ app.get('/all',async (req,res)=>{
         const data = await prisma.financialYear.findMany()
         res.send(data)
     } catch (e) {
-        res.status(500).json({ error: e.message })        
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
     }
 })
 
@@ -24,7 +27,10 @@ app.post('/create', async (req,res)=>{
         })
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
@@ -34,7 +40,10 @@ app.post('/delete', async (req,res)=>{
         const data = await prisma.financialYear.delete( { where: { financialYearId: getData.financialYearId} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ error: e.message })   
+         res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })     
     }
 })
 
