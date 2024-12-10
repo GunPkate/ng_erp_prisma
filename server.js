@@ -22,6 +22,8 @@ app.use("/supplierinvoice",require("./controller/expenses/supplierInvocieControl
 app.use("/supplierinvoicedetail",require("./controller/expenses/supplierInvocieDetailController"))
 app.use("/supplierpayment",require("./controller/expenses/supplierPaymentController"))
 
+app.use("/transaction", require("./controller/transaction/transactionController"))
+
 app.use("/category",require("./controller/stock/categoryController"))
 app.use("/product",require("./controller/stock/productController"))
 
