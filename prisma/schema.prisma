@@ -160,7 +160,7 @@ model customerInvoiceDetail{
   productId String @map("product_id")
   saleQty Int @map("sale_qty")
   saleUnitPrice Float @map("sale_unit_price")
-  customerInvoice customerInvoice @relation(fields: [customerInvoiceId],references: [id])
+  customerInvoice customerInvoice @relation(fields: [customerInvoiceId],references: [id], onDelete: Cascade)
   stock stock? @relation(fields: [productId], references: [productId])
 }
 
@@ -174,7 +174,7 @@ model supplierPayment{
   paymentAmount Float @map("payment_amount")
   remainBalance Float @map("remain_balance")
   date DateTime
-  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceNo], references: [invoiceNo])
+  supplierInvoice supplierInvoice @relation(fields: [supplierInvoiceNo], references: [invoiceNo], onDelete: Cascade)
   user user? @relation(fields: [userId],references: [userId])
 }
 
@@ -188,7 +188,7 @@ model customerPayment{
   paymentAmount Float @map("payment_amount")
   remainBalance Float @map("remain_balance")
   date DateTime
-  customerInvoice customerInvoice@relation(fields: [customerInvoiceNo], references: [invoiceNo])
+  customerInvoice customerInvoice@relation(fields: [customerInvoiceNo], references: [invoiceNo], onDelete: Cascade)
   user user? @relation(fields: [userId],references: [userId])
 }
 
