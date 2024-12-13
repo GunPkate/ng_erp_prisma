@@ -141,7 +141,7 @@ model supplierInvoiceDetail{
 
 model customerInvoice{
   id String @id @default(uuid())
-  customerId String @unique @map("customer_id")
+  customerId String @map("customer_id")
   userId String @map("user_id")
   invoiceNo String @unique @map("invoice_no")
   title String
@@ -149,14 +149,14 @@ model customerInvoice{
   date DateTime
   description String
   customer customer @relation(fields: [customerId],references: [customerId])
-  customerInvoiceDetail customerInvoiceDetail?
+  customerInvoiceDetail customerInvoiceDetail[]
   customerPayment customerPayment[]
   user user? @relation(fields: [userId],references: [userId])
 }
 
 model customerInvoiceDetail{
   id String @id @default(uuid())
-  customerInvoiceId String @unique @map("customer_invoice_id")
+  customerInvoiceId String @map("customer_invoice_id")
   productId String @map("product_id")
   saleQty Int @map("sale_qty")
   saleUnitPrice Float @map("sale_unit_price")
