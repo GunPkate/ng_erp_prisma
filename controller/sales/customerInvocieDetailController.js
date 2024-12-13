@@ -3,10 +3,12 @@ const app = express.Router();
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient;
 
-app.get('/all',async (req,res)=>{
+app.get('/all:invoiceno',async (req,res)=>{
     try {
-        const data = await prisma.customerInvoice.findMany({include: {customerInvoiceDetail: true, customerPayment: true} })
-        
+        let param = req.params.invoiceno.replace(':','')
+
+        const data = await prisma.customerInvoiceDetail.findMany({where: { customerInvoiceId: param } })
+
         res.send(data)
     } catch (e) {
         res.status(500).json({ 
@@ -20,25 +22,21 @@ app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
 
-        const data = await prisma.customerInvoice.create({data: 
+        const data = await prisma.customerInvoiceDetail.create({data: 
             { 
                 id: getData.id,
-                invoiceNo: getData.invoiceNo,
-                customerId: getData.customerId,
-                date: getData.date,
-                title: getData.title,
-                description: getData.description,
-                userId: getData.userId, 
-                totalAmount: getData.totalAmount        
+                customerInvoiceId: getData.customerInvoiceId,
+                productId: getData.productId,
+                saleQty: getData.saleQty,
+                saleUnitPrice: getData.saleUnitPrice,    
             }
         })
         res.send(data)
     } catch (e) {
-
          res.status(500).json({ 
             error: e.message,
             meta: e.meta
-          })   
+          })     
     }
 })
 
@@ -46,8 +44,7 @@ app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
 
-        // const data2 = await prisma.customerInvoiceDetail.delete( { where: { customerInvoiceId: getData.id} } )
-        const data = await prisma.customerInvoice.delete( { where: { id: getData.id} } )
+        const data = await prisma.customerInvoiceDetail.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
          res.status(500).json({ 

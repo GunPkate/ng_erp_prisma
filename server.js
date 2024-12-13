@@ -16,6 +16,8 @@ app.use("/user",require("./controller/user/userController"))
 
 app.use("/customer",require("./controller/sales/customerController"))
 app.use("/customerinvoice",require("./controller/sales/customerInvoiceController"))
+app.use("/customerinvoicedetail",require("./controller/sales/customerInvocieDetailController"))
+app.use("/customerpayment",require("./controller/sales/customerPaymentController"))
 
 app.use("/supplier",require("./controller/expenses/supplierController"))
 app.use("/supplierinvoice",require("./controller/expenses/supplierInvocieController"))
