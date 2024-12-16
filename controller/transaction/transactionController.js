@@ -30,8 +30,8 @@ app.post('/create', async (req,res)=>{
                 userId: getData.userId,
                 credit: getData.credit,
                 debit: getData.debit,
-                transaction_date: getData.transaction_date,
-                transaction_title: getData.transaction_title,
+                transactionDate: getData.transactionDate,
+                transactionTitle: getData.transactionTitle,
                 description: getData.description,
             }
         })
