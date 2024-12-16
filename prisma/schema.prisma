@@ -54,19 +54,10 @@ model accountControl{
   accountHeadCode String @map("account_head_code")
 
   accountHead accountHead@relation(fields: [accountHeadCode], references: [code])
-  accountSubControl accountSubControl[]
   transaction transaction[]
 }
 
-model accountSubControl{
-  id String @id @default(uuid())
-  accountSubcontrolName String @map("account_subcontrol_name")
-  code String @unique
-  accountControlCode String @map("account_control_code")
 
-  accountControl accountControl@relation(fields: [accountControlCode], references: [code])
-  transaction transaction[]
-}
 
 model stock{
   id String @id @default(uuid())
@@ -204,17 +195,15 @@ model transaction{
   financialYearId String @map("financial_year_id")
   accountHeadCode String @map("account_head_code")
   accountControlCode String @map("account_control_code")
-  accountSubcontrolCode String @map("account_subcontrol_code")
   invoiceNo String  @map("invoice_no")
   userId String @map("user_id")
-  credit Float
   debit Float
-  transaction_date DateTime @map("transaction_date")
-  transaction_title String @map("transaction_title")
+  credit Float
+  transactionDate DateTime @map("transaction_date")
+  transactionTitle String @map("transaction_title")
   description String
   financialYear financialYear? @relation(fields: [financialYearId], references: [financialYearId])
   accountHead accountHead@relation(fields: [accountHeadCode], references: [code])
   accountControl accountControl@relation(fields: [accountControlCode], references: [code])
-  accountSubControl accountSubControl@relation(fields: [accountSubcontrolCode], references: [code])
   user user? @relation(fields: [userId],references: [userId])
 }
