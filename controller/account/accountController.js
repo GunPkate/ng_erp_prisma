@@ -92,4 +92,19 @@ app.post('/acccontrol/delete', async (req,res)=>{
     }
 })
 
+app.get('/acchead/filter',async (req,res)=>{
+    try {
+        let data = await prisma.$queryRawUnsafe(`select ac.account_control_name  , t.transaction_title  ,debit ,credit  
+        from "transaction" t
+        left join "accountControl" ac on ac.code = t.account_control_code 
+        group by ac.account_control_name , t.transaction_title, debit , credit;`);
+        res.send(data)
+    } catch (e) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
+    }
+})
+
 module.exports = app
