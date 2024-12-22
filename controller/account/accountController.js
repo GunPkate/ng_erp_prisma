@@ -94,11 +94,12 @@ app.post('/acccontrol/delete', async (req,res)=>{
 
 app.get('/acchead/filter',async (req,res)=>{
     try {
-        const data = await prisma.$queryRaw`select ah.account_head_name accountHeadName, ah.code headCode, ac.account_control_name accountControlName, ac.code controlCode, t.transaction_title title, sum(debit) debit, sum(credit) credit
+        const data = await prisma.$queryRaw`select ah.account_head_name accountHeadName, ah.code headCode, ac.account_control_name accountControlName, ac.code controlCode, sum(debit) debit, sum(credit) credit
         from "transaction" t
         left join "accountControl" ac on ac.code = t.account_control_code 
         left join "accountHead" ah  on ac.account_head_code = ah.code 
-        group by accountHeadName, headCode, accountControlName, controlCode, t.transaction_title, debit , credit;`
+        group by accountHeadName, headCode, accountControlName, controlCode
+        order by controlCode;`
         res.send(data)
     } catch (e) {
         res.status(500).json({ 
