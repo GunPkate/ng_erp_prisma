@@ -104,7 +104,21 @@ app.get('/acchead/filter',async (req,res)=>{
         res.status(500).json({ 
             error: e.message,
             meta: e.meta
-          })          
+        })          
+    }
+})
+
+app.post('/controlcount/', async (req, res)=>{
+    try{
+        const getData = req.body
+        const data = await prisma.accountControl.count({where: {accountHeadCode: getData.accountHeadCode} })
+        console.log(data)
+        res.send({count: data})
+    } catch (e) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+        }) 
     }
 })
 
