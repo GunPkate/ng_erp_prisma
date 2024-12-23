@@ -57,26 +57,31 @@ model accountControl{
   transaction transaction[]
 }
 
-
+model product{
+  id String @id @default(uuid())
+  productName String @map("product_name")
+  stockThresholdQty Int @map("stock_threshold_qty")
+  stock stock[]
+}
 
 model stock{
   id String @id @default(uuid())
   productId String @unique @map("product_id")
   catagoryId String @unique @map("catagory_id")
-  productName String @map("product_name")
+  status String @map("status")
   quantity Int
-  salePrice Float @map("sale_price")
-  currentPurchasePrice Float @map("current_purchase_price")
+  price Float
   description String
   category category @relation(fields: [catagoryId], references: [id])
   expiryDate DateTime @map("expiry_date")
   manuDate DateTime @map("manu_date")
-  stockThresholdQty Int @map("stock_threshold_qty")
+
   userId String @map("user_id")
   user user? @relation(fields: [userId],references: [userId])
 
   supplierInvoiceDetail supplierInvoiceDetail[]
   customerInvoiceDetail customerInvoiceDetail[]
+  product product @relation(fields: [productId], references: [id])
 }
 
 model category{

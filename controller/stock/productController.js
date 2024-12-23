@@ -24,15 +24,12 @@ app.post('/create', async (req,res)=>{
                 id: getData.id,
                 productId: getData.productId,
                 catagoryId: getData.catagoryId,
-                productName: getData.productName,
+                status: getData.status,
                 quantity: getData.quantity,
-                salePrice: getData.salePrice,
-                currentPurchasePrice: getData.currentPurchasePrice,
+                price: getData.price,
                 description: getData.description,
                 expiryDate: getData.expiryDate,
                 manuDate: getData.manuDate,
-                stockThresholdQty: getData.stockThresholdQty,
-                userId: getData.userId,
             }
         })
         res.send(data)
@@ -50,12 +47,40 @@ app.post('/delete', async (req,res)=>{
         const data = await prisma.stock.delete( { where: { id: getData.id} } )
         res.send(data)
     } catch (e) {
-         res.status(500).json({ 
+        res.status(500).json({ 
             error: e.message,
             meta: e.meta
-          })     
+        })     
     }
 })
 
+app.post('/genproduct', async (req, res) => {
+    try {
+        const getData = req.body
+        const data = await prisma.product.create({
+            id: getData.id,
+            productName: getData.productName,
+            stockThresholdQty: getData.stockThresholdQty,
+        })
+        res.send(data)
+    } catch (error) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+        })         
+    }
+})
+
+app.get('/productlist', async (req, res) => {
+    try {
+        const data = await prisma.product.findMany({})  
+        res.send(data)
+    } catch (error) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+        })      
+    }
+})
 
 module.exports = app
