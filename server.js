@@ -27,7 +27,7 @@ app.use("/supplierpayment",require("./controller/expenses/supplierPaymentControl
 app.use("/transaction", require("./controller/transaction/transactionController"))
 
 app.use("/category",require("./controller/stock/categoryController"))
-app.use("/product",require("./controller/stock/productController"))
+app.use("/stock",require("./controller/stock/productController"))
 
 app.use("/account",require("./controller/account/accountController"))
 app.use("/financialyear",require("./controller/account/financialyearController"))

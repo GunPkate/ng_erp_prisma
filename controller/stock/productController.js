@@ -30,6 +30,7 @@ app.post('/create', async (req,res)=>{
                 description: getData.description,
                 expiryDate: getData.expiryDate,
                 manuDate: getData.manuDate,
+                userId: getData.userId,
             }
         })
         res.send(data)
@@ -57,13 +58,14 @@ app.post('/delete', async (req,res)=>{
 app.post('/genproduct', async (req, res) => {
     try {
         const getData = req.body
-        const data = await prisma.product.create({
+        const data = await prisma.product.create({data: {
             id: getData.id,
             productName: getData.productName,
             stockThresholdQty: getData.stockThresholdQty,
+        }
         })
         res.send(data)
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ 
             error: e.message,
             meta: e.meta
@@ -75,11 +77,24 @@ app.get('/productlist', async (req, res) => {
     try {
         const data = await prisma.product.findMany({})  
         res.send(data)
-    } catch (error) {
+    } catch (e) {
         res.status(500).json({ 
             error: e.message,
             meta: e.meta
         })      
+    }
+})
+
+app.post('/productdelete', async (req,res)=>{
+    try {
+        const getData = req.body
+        const data = await prisma.product.delete( { where: { id: getData.id} } )
+        res.send(data)
+    } catch (e) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+        })     
     }
 })
 
