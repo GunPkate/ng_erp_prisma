@@ -68,7 +68,7 @@ model product{
 
 model stock{
   id String @id @default(uuid())
-  productId String @unique @map("product_id")
+  productId String @map("product_id")
   status String @map("status")
   quantity Int
   price Float
