@@ -61,18 +61,18 @@ model product{
   id String @id @default(uuid())
   productName String @map("product_name")
   stockThresholdQty Int @map("stock_threshold_qty")
+  catagoryId String @unique @map("catagory_id")
   stock stock[]
+  category category @relation(fields: [catagoryId], references: [id])
 }
 
 model stock{
   id String @id @default(uuid())
   productId String @unique @map("product_id")
-  catagoryId String @unique @map("catagory_id")
   status String @map("status")
   quantity Int
   price Float
   description String
-  category category @relation(fields: [catagoryId], references: [id])
   expiryDate DateTime @map("expiry_date")
   manuDate DateTime @map("manu_date")
 
@@ -85,7 +85,7 @@ model stock{
 model category{
   id String @id @default(uuid())
   categoryName String @map("category_name")
-  stock stock[]
+  product product[]
 }
 
 model supplier{

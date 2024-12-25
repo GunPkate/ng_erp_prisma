@@ -18,12 +18,10 @@ app.get('/all',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-
         const data = await prisma.stock.create({data: 
             { 
                 id: getData.id,
                 productId: getData.productId,
-                catagoryId: getData.catagoryId,
                 status: getData.status,
                 quantity: getData.quantity,
                 price: getData.price,
@@ -62,6 +60,7 @@ app.post('/genproduct', async (req, res) => {
             id: getData.id,
             productName: getData.productName,
             stockThresholdQty: getData.stockThresholdQty,
+            catagoryId: getData.catagoryId,
         }
         })
         res.send(data)
