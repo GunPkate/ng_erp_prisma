@@ -27,6 +27,7 @@ app.post('/create', async (req,res)=>{
                 accountControlCode: getData.accountControlCode,
                 accountSubcontrolCode: getData.accountSubcontrolCode,
                 invoiceNo: getData.invoiceNo,
+                invoiceDetailsId: getData.invoiceDetailsId,
                 userId: getData.userId,
                 credit: getData.credit,
                 debit: getData.debit,

@@ -197,12 +197,14 @@ model transaction{
   accountHeadCode String @map("account_head_code")
   accountControlCode String @map("account_control_code")
   invoiceNo String  @map("invoice_no")
+  invoiceDetailsId String @map("invoice_detail_no")
   userId String @map("user_id")
   debit Float
   credit Float
   transactionDate DateTime @map("transaction_date")
   transactionTitle String @map("transaction_title")
   description String
+
   financialYear financialYear? @relation(fields: [financialYearId], references: [financialYearId])
   accountHead accountHead@relation(fields: [accountHeadCode], references: [code])
   accountControl accountControl@relation(fields: [accountControlCode], references: [code])

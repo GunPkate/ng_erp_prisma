@@ -48,6 +48,11 @@ app.post('/delete', async (req,res)=>{
 
         // const data2 = await prisma.supplierInvoiceDetail.delete( { where: { supplierInvoiceId: getData.id} } )
         const data = await prisma.supplierInvoice.delete( { where: { id: getData.id} } )
+        let checkData = await prisma.transaction.count({ where: { invoiceNo: getData.invoiceNo } })
+        if(checkData > 0){
+            let deleteData = await prisma.transaction.deleteMany({ where: { invoiceNo: getData.invoiceNo } })
+            console.log(deleteData)
+        }
         res.send(data)
     } catch (e) {
          res.status(500).json({ 
