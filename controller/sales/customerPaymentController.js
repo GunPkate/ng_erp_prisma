@@ -49,6 +49,11 @@ app.post('/delete', async (req,res)=>{
         const getData = req.body
         console.log("Date",getData)
         const data = await prisma.customerPayment.delete( { where: { paymentId: getData.paymentId} } )
+        let checkData = await prisma.transaction.count({ where: { invoiceDetailsId: getData.paymentId } })
+        if(checkData > 0){
+            let deleteData = await prisma.transaction.deleteMany({ where: { invoiceDetailsId: getData.paymentId } })
+            console.log(deleteData)
+        }
         res.send(data)
     } catch (e) {
          res.status(500).json({ 
