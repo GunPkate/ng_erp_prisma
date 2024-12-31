@@ -109,6 +109,26 @@ app.get('/acchead/filter',async (req,res)=>{
     }
 })
 
+app.get('/generalledger/filter/:acccode', async (req, res) => {
+    let acccode = req.params.acccode
+    let sql = `select ah.account_head_name accountHeadName, ah.code headCode, ac.account_control_name accountControlName,  ac.code controlCode,t.transaction_date, t.debit, t.credit  
+            from "transaction" t
+            left join "accountControl" ac on ac.code = t.account_control_code 
+            left join "accountHead" ah  on ac.account_head_code = ah.code 
+            where ac.account_head_code = '$1'
+            order by controlCode;`
+    sql = sql.replace('$1',acccode)
+    try {
+        const data = await prisma.$queryRawUnsafe(sql)
+        res.send(data)
+    } catch (e) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+        })          
+    }
+})
+
 app.post('/controlcount/', async (req, res)=>{
     try{
         const getData = req.body
