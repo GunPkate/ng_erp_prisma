@@ -111,7 +111,7 @@ app.get('/acchead/filter',async (req,res)=>{
 
 app.get('/generalledger/filter/:acccode', async (req, res) => {
     let acccode = req.params.acccode
-    let sql = `select ah.account_head_name accountHeadName, ah.code headCode, ac.account_control_name accountControlName,  ac.code controlCode,t.transaction_date, t.debit, t.credit  
+    let sql = `select ah.account_head_name accountHeadName, ah.code headCode, ac.account_control_name accountControlName,  ac.code controlCode,t.transaction_date date, t.debit, t.credit  
             from "transaction" t
             left join "accountControl" ac on ac.code = t.account_control_code 
             left join "accountHead" ah  on ac.account_head_code = ah.code 
