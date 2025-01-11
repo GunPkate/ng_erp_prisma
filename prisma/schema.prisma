@@ -72,7 +72,7 @@ model stock{
   status String @map("status")
   quantity Int
   price Float
-  description String
+  invoiceDetailId String
   expiryDate DateTime @map("expiry_date")
   manuDate DateTime @map("manu_date")
 
