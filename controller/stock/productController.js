@@ -18,7 +18,6 @@ app.get('/all',async (req,res)=>{
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
-        console.log("getData",getData)
         const data = await prisma.stock.create({data: 
             { 
                 id: getData.id,
@@ -44,7 +43,7 @@ app.post('/create', async (req,res)=>{
 app.post('/delete', async (req,res)=>{
     try {
         const getData = req.body
-        const data = await prisma.stock.delete( { where: { id: getData.id} } )
+        const data = await prisma.stock.delete( { where: { invoiceDetailId: getData.id} } )
         res.send(data)
     } catch (e) {
         res.status(500).json({ 
