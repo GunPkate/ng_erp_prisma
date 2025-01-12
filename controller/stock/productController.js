@@ -15,6 +15,29 @@ app.get('/all',async (req,res)=>{
     }
 })
 
+app.get('/purchaselist',async (req,res)=>{
+    try {
+        let stock = {
+            purchase: 0,
+            sale: 0
+        }
+        const data = await prisma.stock.findMany({where: {status: "Purchase"}})
+        data.forEach(element => {
+            stock.purchase += element.quantity
+        });
+        const data2 = await prisma.stock.findMany({where: {status: "Sale"}})
+        data2.forEach(element => {
+            stock.sale += element.quantity
+        });
+        res.send(stock)
+    } catch (e) {
+        res.status(500).json({ 
+            error: e.message,
+            meta: e.meta
+          })          
+    }
+})
+
 app.post('/create', async (req,res)=>{
     try {
         const getData = req.body
