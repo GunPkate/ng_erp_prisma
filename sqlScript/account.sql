@@ -16,3 +16,4 @@ insert into "accountControl" (id,code,account_control_name,account_head_code) va
 insert into "accountControl" (id,code,account_control_name,account_head_code) values ('R01','401','Sale Income','4');
 
 insert into "accountControl" (id,code,account_control_name,account_head_code) values ('E01','501','Salary Expense','5');
+insert into "accountControl" (id,code,account_control_name,account_head_code) values ('E02','502','Cost of Goods Sold','5');
