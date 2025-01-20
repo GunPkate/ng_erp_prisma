@@ -51,6 +51,7 @@ app.post('/create', async (req,res)=>{
                 invoiceDetailId: getData.invoiceDetailId,
                 expiryDate: getData.expiryDate,
                 manuDate: getData.manuDate,
+                invoiceDate: getData.invoiceDate,
                 userId: getData.userId,
             }
         })

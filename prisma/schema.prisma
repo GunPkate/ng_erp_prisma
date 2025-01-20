@@ -75,6 +75,7 @@ model stock{
   invoiceDetailId String @unique
   expiryDate DateTime @map("expiry_date")
   manuDate DateTime @map("manu_date")
+  invoiceDate DateTime @map("invoice_date")
 
   userId String @map("user_id")
   user user? @relation(fields: [userId],references: [userId])

@@ -53,6 +53,12 @@ app.post('/delete', async (req,res)=>{
             let deleteData = await prisma.transaction.deleteMany({ where: { invoiceNo: getData.invoiceNo } })
             console.log(deleteData)
         }
+        let checkInvoiceDetail = []
+        checkInvoiceDetail = getData.customerInvoiceDetail.map(x=>x.id)
+
+        if(checkInvoiceDetail.length > 0){
+            await prisma.stock.deleteMany({where: { invoiceDetailId: { in : checkInvoiceDetail} }})
+        }
         res.send(data)
     } catch (e) {
          res.status(500).json({ 
